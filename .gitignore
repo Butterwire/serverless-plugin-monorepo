@@ -1,0 +1,11 @@
+# IDE files
+.idea/
+
+# Installed packages
+node_modules/
+
+# Temporary files
+.home/
+*-error.log
+.DS_Store
+*~

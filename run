@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Run NodeJS in Docker container for development
+docker run -ti --rm \
+   --hostname docker-dev \
+   -v $(pwd):/bwjs:cached -w /bwjs \
+   -v /etc/passwd:/etc/passwd:ro \
+   -u $(id -u):$(id -g) \
+   -e HOME=/bwjs/.home \
+   -e PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/bwjs/node_modules/.bin \
+   -e USER=$(whoami) \
+   node:8 ${@:-bash}
