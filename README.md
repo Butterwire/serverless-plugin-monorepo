@@ -54,3 +54,7 @@ you may find useful for development purposes.
 
 Note we are using [StandardJS](https://standardjs.com/) and you can run
 the lint tool via `yarn lint` which will attempt to automatically issues like spacing etc. 
+
+## Copyright
+
+Copyright [Butterwire Limited](https://www.butterwire.com) 2018
