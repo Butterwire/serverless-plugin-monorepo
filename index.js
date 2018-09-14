@@ -106,8 +106,9 @@ class ServerlessMonoRepo {
 
     // Link all dependent packages
     this.log('Creating dependency symlinks')
+    const contents = new Set()
     await Promise.all(Object.keys(dependencies).map(name =>
-      this.linkPackage(name, this.settings.path, path.join(this.settings.path, 'node_modules'), new Set())
+      this.linkPackage(name, this.settings.path, path.join(this.settings.path, 'node_modules'), contents)
     ))
   }
 }
