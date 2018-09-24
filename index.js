@@ -34,7 +34,8 @@ class ServerlessMonoRepo {
     this.log = msg => serverless.cli.log(msg)
 
     // Settings
-    this.settings = this.serverless.service.custom.serverlessMonoRepo || {}
+    const custom = this.serverless.service.custom || {}
+    this.settings = custom.serverlessMonoRepo || {}
     this.settings.path = this.settings.path || this.serverless.config.servicePath
   }
 
