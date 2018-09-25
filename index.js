@@ -39,9 +39,9 @@ class ServerlessMonoRepo {
     this.settings.path = this.settings.path || this.serverless.config.servicePath
   }
 
-  async linkPackage (name, fromPath, toPath, created) {
-    // Do nothing if already created
-    if (created.has(name)) {
+  async linkPackage (name, fromPath, toPath, created, resolved) {
+    // Ignore circular dependencies
+    if (resolved.includes(name)) {
       return
     }
 
@@ -53,7 +53,7 @@ class ServerlessMonoRepo {
 
     // Get relative path to package & create link if not an embedded node_modules
     const target = path.relative(path.join(toPath, path.dirname(name)), path.dirname(pkg))
-    if ((pkg.match(/node_modules/g) || []).length <= 1) {
+    if ((pkg.match(/node_modules/g) || []).length <= 1 && !created.has(name)) {
       created.add(name)
       await link(target, path.join(toPath, name))
     }
@@ -62,8 +62,8 @@ class ServerlessMonoRepo {
     const { dependencies = {} } = require(pkg)
 
     // Link all dependencies
-    await Promise.all(Object.keys(dependencies).map(name =>
-      this.linkPackage(name, path.dirname(pkg), toPath, created)
+    await Promise.all(Object.keys(dependencies).map(dep =>
+      this.linkPackage(dep, path.dirname(pkg), toPath, created, resolved.concat([name]))
     ))
   }
 
@@ -113,7 +113,7 @@ class ServerlessMonoRepo {
     this.log('Creating dependency symlinks')
     const contents = new Set()
     await Promise.all(Object.keys(dependencies).map(name =>
-      this.linkPackage(name, this.settings.path, path.join(this.settings.path, 'node_modules'), contents)
+      this.linkPackage(name, this.settings.path, path.join(this.settings.path, 'node_modules'), contents, [])
     ))
   }
 }
