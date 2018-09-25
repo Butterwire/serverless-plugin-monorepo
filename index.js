@@ -76,6 +76,10 @@ class ServerlessMonoRepo {
 
     // Cleans all links in a specific path
     async function clean (p) {
+      if (!(await fs.pathExists(p))) {
+        return
+      }
+
       const files = await fs.readdir(p)
       let contents = await Promise.all(files.map(f =>
         fs.lstat(path.join(p, f)).then(s => ({ f, s }))
