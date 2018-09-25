@@ -1,6 +1,6 @@
 {
   "name": "serverless-plugin-monorepo",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "repository": "github:butterwire/serverless-plugin-monorepo",
   "description": "Serverless plugin to allow use inside a JS monorepo",
   "keywords": [
