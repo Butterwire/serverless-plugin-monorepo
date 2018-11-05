@@ -28,8 +28,12 @@ class ServerlessMonoRepo {
   constructor (serverless) {
     this.serverless = serverless
     this.hooks = {
-      'package:cleanup': this.clean.bind(this),
-      'package:initialize': this.packageInitialise.bind(this)
+      'package:cleanup': () => this.clean(),
+      'package:initialize': () => this.initialise(),
+      'deploy:function:initialize': async () => {
+        await this.clean()
+        await this.initialise()
+      }
     }
     this.log = msg => serverless.cli.log(msg)
 
@@ -105,7 +109,7 @@ class ServerlessMonoRepo {
     await clean(path.join(this.settings.path, 'node_modules'))
   }
 
-  async packageInitialise () {
+  async initialise () {
     // Read package JSON
     const { dependencies = {} } = require(path.join(this.settings.path, 'package.json'))
 
