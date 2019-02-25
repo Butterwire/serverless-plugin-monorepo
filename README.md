@@ -48,6 +48,7 @@ dependencies will be added as expected. Development/peer dependencies are ignore
 The plugin will run when you do:
 - A full deployment (`sls deploy`)
 - Deployment of individual functions (`sls deploy -f`)
+- Spinning up a local sandbox with [serverless-offline](https://github.com/dherault/serverless-offline) (`sls offline [start]`)
 
 ## Contributing
 
