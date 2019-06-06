@@ -27,5 +27,8 @@
   },
   "scripts": {
     "lint": "standard --fix"
+  },
+  "resolutions": {
+    "js-yaml": "^3.13.1"
   }
 }
