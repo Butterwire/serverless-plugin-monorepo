@@ -15,7 +15,7 @@ const getNodeModulePaths = p => {
 // Creates a symlink. Ignores if fails to create due to already existing.
 async function link (target, f) {
   await fs.ensureDir(path.dirname(f))
-  await fs.symlink(target, f)
+  await fs.symlink(target, f, 'dir')
     .catch(e => {
       if (e.code === 'EEXIST') {
         return
