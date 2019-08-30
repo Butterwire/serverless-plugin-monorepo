@@ -13,9 +13,9 @@ const getNodeModulePaths = p => {
 }
 
 // Creates a symlink. Ignores if fails to create due to already existing.
-async function link (target, f) {
+async function link (target, f, type) {
   await fs.ensureDir(path.dirname(f))
-  await fs.symlink(target, f, 'dir')
+  await fs.symlink(target, f, type)
     .catch(e => {
       if (e.code === 'EEXIST') {
         return
@@ -43,6 +43,7 @@ class ServerlessMonoRepo {
     const custom = this.serverless.service.custom || {}
     this.settings = custom.serverlessMonoRepo || {}
     this.settings.path = this.settings.path || this.serverless.config.servicePath
+    this.settings.linkType = 'junction'
   }
 
   async linkPackage (name, fromPath, toPath, created, resolved) {
@@ -61,7 +62,7 @@ class ServerlessMonoRepo {
     const target = path.relative(path.join(toPath, path.dirname(name)), path.dirname(pkg))
     if ((pkg.match(/node_modules/g) || []).length <= 1 && !created.has(name)) {
       created.add(name)
-      await link(target, path.join(toPath, name))
+      await link(target, path.join(toPath, name), this.settings.linkType)
     }
 
     // Get dependencies

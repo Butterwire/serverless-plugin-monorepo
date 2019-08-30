@@ -50,6 +50,13 @@ The plugin will run when you do:
 - Deployment of individual functions (`sls deploy -f`)
 - Spinning up a local sandbox with [serverless-offline](https://github.com/dherault/serverless-offline) (`sls offline [start]`)
 
+## Settings
+
+On Windows platforms only, the package will create [junction links]
+(https://docs.microsoft.com/en-us/windows/win32/fileio/hard-links-and-junctions) by default as these do not require
+administrative privileges on older versions of Windows. You can set the `linkType` setting
+to `dir` to create symbolic links instead. This setting is directly passed to the [fs.symlink](https://nodejs.org/docs/latest/api/fs.html#fs_fs_symlink_target_path_type_callback) function. It is ignored on non Windows platforms.
+
 ## Contributing
 
 We welcome issue reports and pull requests!
@@ -62,4 +69,4 @@ the lint tool via `yarn lint` which will attempt to automatically issues like sp
 
 ## Copyright
 
-Copyright [Butterwire Limited](https://www.butterwire.com) 2018
+Copyright [Butterwire Limited](https://www.butterwire.com) 2018 - 2019
