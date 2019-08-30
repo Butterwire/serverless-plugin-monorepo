@@ -52,10 +52,8 @@ The plugin will run when you do:
 
 ## Settings
 
-On Windows platforms only, the package will create [junction links]
-(https://docs.microsoft.com/en-us/windows/win32/fileio/hard-links-and-junctions) by default as these do not require
-administrative privileges on older versions of Windows. You can set the `linkType` setting
-to `dir` to create symbolic links instead. This setting is directly passed to the [fs.symlink](https://nodejs.org/docs/latest/api/fs.html#fs_fs_symlink_target_path_type_callback) function. It is ignored on non Windows platforms.
+On Windows platforms only, the package will create [junction links](https://docs.microsoft.com/en-us/windows/win32/fileio/hard-links-and-junctions) by default as these do not require administrative privileges on older versions of Windows.
+You can set the `linkType` setting to `dir` to create symbolic links instead. This setting is directly passed to the [fs.symlink](https://nodejs.org/docs/latest/api/fs.html#fs_fs_symlink_target_path_type_callback) function. It is ignored on non Windows platforms.
 
 ## Contributing
 
