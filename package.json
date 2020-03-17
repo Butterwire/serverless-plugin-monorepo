@@ -29,6 +29,7 @@
     "lint": "standard --fix"
   },
   "resolutions": {
-    "js-yaml": "^3.13.1"
+    "js-yaml": "^3.13.1",
+    "minimist": "1.2.5"
   }
 }
