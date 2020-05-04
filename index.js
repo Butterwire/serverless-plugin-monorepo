@@ -17,7 +17,7 @@ async function link (target, f, type) {
   await fs.ensureDir(path.dirname(f))
   await fs.symlink(target, f, type)
     .catch(e => {
-      if (e.code === 'EEXIST'|| e.code === 'EISDIR') {
+      if (e.code === 'EEXIST' || e.code === 'EISDIR') {
         return
       }
       throw e
