@@ -56,7 +56,7 @@ class ServerlessMonoRepo {
     const paths = getNodeModulePaths(fromPath)
 
     // Get package file path
-    const pkg = require.resolve(path.join(name, 'package.json'), { paths })
+    const pkg = require.resolve('./' + path.join(name, 'package.json'), { paths })
 
     // Get relative path to package & create link if not an embedded node_modules
     const target = path.relative(path.join(toPath, path.dirname(name)), path.dirname(pkg))
