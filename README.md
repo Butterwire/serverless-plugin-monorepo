@@ -1,6 +1,7 @@
 # serverless-plugin-monorepo
 
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![NPM Package](https://img.shields.io/npm/v/serverless-plugin-monorepo.svg)](https://www.npmjs.com/package/serverless-plugin-monorepo)
 
 A Serverless plugin design to make it possible to use Serverless in a
@@ -25,7 +26,7 @@ yarn add --dev serverless-plugin-monorepo
 npm install --dev serverless-plugin-monorepo
 ```
 
-Currently this plugin requires Node V8+. If there is interest in support older
+Currently this plugin requires Node V10+. If there is interest in support older
 versions then trans-compilation with Babel could be added.
 
 
@@ -59,7 +60,7 @@ You can set the `linkType` setting to `dir` to create symbolic links instead. Th
 
 We welcome issue reports and pull requests!
 
-There is a small `run` script which will launch Node V8 in a Docker container which
+There is a small `run` script which will launch Node V14 in a Docker container which
 you may find useful for development purposes.
 
 Note we are using [Prettier](https://prettier.io/) with [Typescript ESLint](https://github.com/typescript-eslint/typescript-eslint) and you can run
