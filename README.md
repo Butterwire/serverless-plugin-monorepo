@@ -62,9 +62,9 @@ We welcome issue reports and pull requests!
 There is a small `run` script which will launch Node V8 in a Docker container which
 you may find useful for development purposes.
 
-Note we are using [StandardJS](https://standardjs.com/) and you can run
+Note we are using [Prettier](https://prettier.io/) with [Typescript ESLint](https://github.com/typescript-eslint/typescript-eslint) and you can run
 the lint tool via `yarn lint` which will attempt to automatically issues like spacing etc.
 
 ## Copyright
 
-Copyright [Butterwire Limited](https://www.butterwire.com) 2018 - 2019
+Copyright [Butterwire Limited](https://www.butterwire.com) 2018 - 2020

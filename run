@@ -9,4 +9,4 @@ docker run -ti --rm \
    -e HOME=/bwjs/.home \
    -e PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/bwjs/node_modules/.bin \
    -e USER=$(whoami) \
-   node:8 ${@:-bash}
+   node:14 ${@:-bash}
