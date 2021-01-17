@@ -61,14 +61,16 @@ module.exports = class ServerlessMonoRepo {
     } else if (Array.isArray(custom)) {
       this.settings = custom.map(({ path, linkType }) => {
         return {
-          path: `${this.serverless.config.servicePath}/${path}`,
+          path: PathLib.resolve(
+            PathLib.join(this.serverless.config.servicePath, path)
+          ),
           linkType: linkType ?? 'junction', // the only optional param
         } as ServerlessMonoRepoSettings;
       });
     } else {
       this.settings = [
         {
-          path: `${this.serverless.config.servicePath}/${custom.path}`,
+          path: PathLib.join(this.serverless.config.servicePath, custom.path),
           linkType: custom.linkType ?? 'junction',
         },
       ];
