@@ -15,8 +15,7 @@ will not be packaged into the resulting archive.
 experience. Not using nohoist saves wasting disk space and also accidentally including
 development dependencies in our packaged functions.
 
-*Note, this package will only work on operating systems that support symbolic links!*
-
+_Note, this package will only work on operating systems that support symbolic links!_
 
 ## Installation
 
@@ -28,7 +27,6 @@ npm install --dev serverless-plugin-monorepo
 
 Currently this plugin requires Node V10+. If there is interest in support older
 versions then trans-compilation with Babel could be added.
-
 
 ## Usage
 
@@ -43,10 +41,33 @@ The plugin listens for package lifecycle events. Prior to Serverless packaging
 up the service, it will scan the `package.json` file for dependencies and
 ensure that all dependencies (including transitive dependencies) are symlinked in `node_modules`.
 
+Optionally, you can add a custom configuration to point to one or many directories containing package.json files which you would like to have symlinks created in.
+For example:
+
+```
+custom:
+  serverlessMonoRepo:
+    path: /fully/qualified/path/to/dir/
+    linkType: junction
+```
+
+`linkType` is optional and defaults to `junction`.
+
+If you have multiple `package.json` files, which is common when using the `serverless-plugin-layer-manager` plugin, you can create a list of paths:
+
+```
+custom:
+  serverlessMonoRepo:
+    - path: /fully/qualified/path/to/dir/
+      linkType: junction
+    - path: /fully/qualified/path/to/dir/lambda-layer/
+```
+
 Hence when Serverless creates the archive, it will follow the symlinks and all
 dependencies will be added as expected. Development/peer dependencies are ignored.
 
 The plugin will run when you do:
+
 - A full deployment (`sls deploy`)
 - Deployment of individual functions (`sls deploy -f`)
 - Spinning up a local sandbox with [serverless-offline](https://github.com/dherault/serverless-offline) (`sls offline [start]`)
