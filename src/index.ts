@@ -184,7 +184,7 @@ module.exports = class ServerlessMonoRepo {
     const { dependencies = {} } = require(PathLib.join(path, 'package.json'));
 
     // Link all dependent packages
-    this.log(`Creating dependency symlinks in directory ${path}`);
+    this.log(`Creating dependency symlinks in directory: ${path}`);
     const contents = new Set<string>();
     await Promise.all(
       Object.keys(dependencies).map((name) =>
