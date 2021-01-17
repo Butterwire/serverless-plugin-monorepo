@@ -2,9 +2,6 @@
 .idea/
 .vscode/
 
-# Compiled output
-lib/
-
 # Installed packages
 node_modules/
 
