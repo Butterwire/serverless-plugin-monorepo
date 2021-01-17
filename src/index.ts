@@ -61,14 +61,14 @@ module.exports = class ServerlessMonoRepo {
     } else if (Array.isArray(custom)) {
       this.settings = custom.map(({ path, linkType }) => {
         return {
-          path: path,
+          path: `${this.serverless.config.servicePath}/${path}`,
           linkType: linkType ?? 'junction', // the only optional param
         } as ServerlessMonoRepoSettings;
       });
     } else {
       this.settings = [
         {
-          path: custom.path,
+          path: `${this.serverless.config.servicePath}/${custom.path}`,
           linkType: custom.linkType ?? 'junction',
         },
       ];
@@ -184,7 +184,7 @@ module.exports = class ServerlessMonoRepo {
     const { dependencies = {} } = require(PathLib.join(path, 'package.json'));
 
     // Link all dependent packages
-    this.log('Creating dependency symlinks');
+    this.log(`Creating dependency symlinks in directory ${path}`);
     const contents = new Set<string>();
     await Promise.all(
       Object.keys(dependencies).map((name) =>
