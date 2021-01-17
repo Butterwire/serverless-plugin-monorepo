@@ -51,15 +51,15 @@ custom:
     linkType: junction
 ```
 
-`linkType` is optional and defaults to `junction`.
+`linkType` is optional and defaults to `junction`. It is only applicable to Windows machines, read the docs here https://nodejs.org/api/fs.html#fs_fs_symlink_target_path_type_callback
 
-If you have multiple `package.json` files, which is common when using the `serverless-plugin-layer-manager` plugin, you can create a list of paths:
+If you have multiple `package.json` files, which is common when using the `serverless-plugin-layer-manager` plugin, you can create a list of paths. To include the same path as your `serverless.yml`, use `./`
 
 ```
 custom:
   serverlessMonoRepo:
+    - path: ./
     - path: ./lambda-layer/
-      linkType: junction
     - path: ./lambda-layer-2/
 ```
 
