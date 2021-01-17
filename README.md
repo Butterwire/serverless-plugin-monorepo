@@ -47,7 +47,7 @@ For example:
 ```
 custom:
   serverlessMonoRepo:
-    path: /fully/qualified/path/to/dir/
+    path: ./
     linkType: junction
 ```
 
@@ -58,9 +58,9 @@ If you have multiple `package.json` files, which is common when using the `serve
 ```
 custom:
   serverlessMonoRepo:
-    - path: /fully/qualified/path/to/dir/
+    - path: ./lambda-layer/
       linkType: junction
-    - path: /fully/qualified/path/to/dir/lambda-layer/
+    - path: ./lambda-layer-2/
 ```
 
 Hence when Serverless creates the archive, it will follow the symlinks and all
