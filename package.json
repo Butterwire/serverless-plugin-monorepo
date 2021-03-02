@@ -1,6 +1,6 @@
 {
-  "name": "serverless-plugin-monorepo",
-  "version": "0.10.0",
+  "name": "@koditio/serverless-plugin-monorepo",
+  "version": "0.10.1",
   "repository": "github:butterwire/serverless-plugin-monorepo",
   "description": "Serverless plugin to allow use inside a JS monorepo",
   "keywords": [
@@ -18,7 +18,7 @@
     "fs-extra": "^9.0.1"
   },
   "peerDependencies": {
-    "serverless": "1.x"
+    "serverless": "1.x || 2.x"
   },
   "engines": {
     "node": ">=10"
