@@ -30,6 +30,7 @@ class ServerlessMonoRepo {
     this.hooks = {
       'package:cleanup': () => this.clean(),
       'package:initialize': () => this.initialise(),
+      'before:offline:start:init': () => this.initialise(),
       'offline:start:init': () => this.initialise(),
       'offline:start': () => this.initialise(),
       'deploy:function:initialize': async () => {
