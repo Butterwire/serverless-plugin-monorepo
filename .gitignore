@@ -3,7 +3,7 @@
 .vscode/
 
 # Compiled output
-lib/
+# lib/
 
 # Installed packages
 node_modules/
