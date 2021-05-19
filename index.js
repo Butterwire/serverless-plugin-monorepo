@@ -100,11 +100,11 @@ class ServerlessMonoRepo {
       // Remove all links in scoped packages
       await Promise.all(contents.filter(isScopedPkgDir)
         .map(c => clean(path.join(p, c.f))))
-      contents = contents.filter(c => !isScopedPkgDir(c))
-
+        
+      const remainingFiles = await fs.readdir(p);
       // Remove directory if empty
-      if (!contents.length) {
-        await fs.rmdir(p)
+      if (!remainingFiles.length) {
+        await fs.rmdir(p);
       }
     }
 
