@@ -1,6 +1,6 @@
 {
-  "name": "serverless-plugin-monorepo",
-  "version": "0.10.1",
+  "name": "@koditio/serverless-plugin-monorepo",
+  "version": "0.11.1",
   "repository": "github:butterwire/serverless-plugin-monorepo",
   "description": "Serverless plugin to allow use inside a JS monorepo",
   "keywords": [
@@ -35,9 +35,10 @@
     "typescript": "^4.0.5"
   },
   "scripts": {
-    "lint:check": "yarn eslint . --ext .ts",
+    "lint:check": "npm run eslint . --ext .ts",
     "lint:format": "prettier -l 'src/**/*.ts'",
-    "lint": "yarn lint:format && yarn lint:check"
+    "lint": "npm run lint:format && npm run lint:check",
+    "build": "tsc"
   },
   "resolutions": {
     "js-yaml": "^3.13.1",
