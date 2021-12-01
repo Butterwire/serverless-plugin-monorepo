@@ -41,9 +41,9 @@
     "typescript": "^4.0.5"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "lint:check": "yarn eslint . --ext .ts",
-    "lint:format": "prettier -l 'src/**/*.ts'",
+    "lint:format": "prettier -l 'src/**/*.ts' '**/*.json'",
     "lint": "yarn lint:format && yarn lint:check",
     "test": "jest"
   },
