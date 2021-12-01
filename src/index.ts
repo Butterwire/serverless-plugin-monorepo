@@ -14,7 +14,7 @@ function getNodeModulePaths(p: string): string[] {
 }
 
 /** Creates a symlink. Ignore errors if symlink exists or package exists. */
-async function link(target: string, f: string, type: fs.FsSymlinkType) {
+async function link(target: string, f: string, type: fs.SymlinkType) {
   await fs.ensureDir(path.dirname(f));
   await fs.symlink(target, f, type).catch((e) => {
     if (e.code === 'EEXIST' || e.code === 'EISDIR') {
@@ -27,7 +27,7 @@ async function link(target: string, f: string, type: fs.FsSymlinkType) {
 /** Settings that can be specified in serverless YAML file */
 export interface ServerlessMonoRepoSettings {
   path: string;
-  linkType: fs.FsSymlinkType;
+  linkType: fs.SymlinkType;
 }
 
 /** Plugin implementation */
