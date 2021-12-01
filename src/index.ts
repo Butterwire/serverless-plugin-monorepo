@@ -143,7 +143,8 @@ module.exports = class ServerlessMonoRepo {
       contents = contents.filter((c) => !isScopedPkgDir(c));
 
       // Remove directory if empty
-      if (!contents.length) {
+      const filesInDir = await fs.readdir(p);
+      if (!filesInDir.length) {
         await fs.rmdir(p);
       }
     }
