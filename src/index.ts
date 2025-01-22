@@ -60,51 +60,47 @@ module.exports = class ServerlessMonoRepo {
     this.serverless.cli.log(msg);
   }
 
-  async linkPackage(
-    name: string,
-    fromPath: string,
-    toPath: string,
-    created: Set<string>,
-    resolved: string[]
-  ) {
-    // Ignore circular dependencies
-    if (resolved.includes(name)) {
-      return;
+  async linkPackage(parent: string, fromPath: string, toPath: string) {
+    const key = parent + ':';
+    const visited = new Set([key]);
+    const queue = [[key, fromPath]];
+
+    while (queue.length) {
+      let [key, fromPath] = queue.shift() as string[];
+      const [name] = key.split(':');
+
+      // Obtain list of module resolution paths to use for resolving modules
+      const paths = getNodeModulePaths(fromPath);
+
+      // Get package file path
+      const pkg = require.resolve('./' + path.join(name, 'package.json'), {
+        paths,
+      });
+
+      // Get dependencies
+      const { dependencies = {} } = require(pkg);
+
+      fromPath = path.dirname(pkg);
+
+      // Get relative path to package
+      const target = path.relative(
+        path.join(toPath, path.dirname(name)),
+        fromPath
+      );
+
+      // Create link, ignoring the parent package and embedded modules
+      if (parent !== name && (pkg.match(/node_modules/g) || []).length <= 1)
+        await link(target, path.join(toPath, name), this.settings.linkType);
+
+      for (const [name, version] of Object.entries(dependencies)) {
+        key = name + ':' + version;
+
+        if (!visited.has(key)) {
+          queue.push([key, fromPath]);
+          visited.add(key);
+        }
+      }
     }
-
-    // Obtain list of module resolution paths to use for resolving modules
-    const paths = getNodeModulePaths(fromPath);
-
-    // Get package file path
-    const pkg = require.resolve('./' + path.join(name, 'package.json'), {
-      paths,
-    });
-
-    // Get relative path to package & create link if not an embedded node_modules
-    const target = path.relative(
-      path.join(toPath, path.dirname(name)),
-      path.dirname(pkg)
-    );
-    if ((pkg.match(/node_modules/g) || []).length <= 1 && !created.has(name)) {
-      created.add(name);
-      await link(target, path.join(toPath, name), this.settings.linkType);
-    }
-
-    // Get dependencies
-    const { dependencies = {} } = require(pkg);
-
-    // Link all dependencies
-    await Promise.all(
-      Object.keys(dependencies).map((dep) =>
-        this.linkPackage(
-          dep,
-          path.dirname(pkg),
-          toPath,
-          created,
-          resolved.concat([name])
-        )
-      )
-    );
   }
 
   async clean() {
@@ -155,24 +151,17 @@ module.exports = class ServerlessMonoRepo {
 
   async initialise() {
     // Read package JSON
-    const { dependencies = {} } = require(path.join(
+    const { name = '' } = require(path.join(
       this.settings.path,
       'package.json'
     ));
 
     // Link all dependent packages
     this.log('Creating dependency symlinks');
-    const contents = new Set<string>();
-    await Promise.all(
-      Object.keys(dependencies).map((name) =>
-        this.linkPackage(
-          name,
-          this.settings.path,
-          path.join(this.settings.path, 'node_modules'),
-          contents,
-          []
-        )
-      )
+    this.linkPackage(
+      name,
+      this.settings.path,
+      path.join(this.settings.path, 'node_modules')
     );
   }
 };
